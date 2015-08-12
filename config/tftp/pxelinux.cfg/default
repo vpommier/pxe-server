@@ -1,0 +1,21 @@
+DEFAULT menu.c32
+PROMPT 0
+TIMEOUT 20
+ONTIMEOUT 1
+
+menu title ##### PXE BOOT Menu #####
+
+label 1
+  menu label ^Ubuntu 14.10 minimal
+  kernel ./memdisk
+  append iso initrd=http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-amd64/current/images/netboot/mini.iso raw
+
+label 2
+  menu label ^Centos 7
+  kernel http://centos.mirrors.ovh.net/ftp.centos.org/7/os/x86_64/images/pxeboot/vmlinuz
+  append initrd=http://centos.mirrors.ovh.net/ftp.centos.org/7/os/x86_64/images/pxeboot/initrd.img ks=http://10.10.10.90/kickstart/centos_minimal-7-x86_64.cfg inst.vnc inst.vncpassword=password
+
+label 3
+  menu label ^Coreos latest
+  kernel http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
+  append initrd=http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz cloud-config-url=http://10.10.10.90/cloud-config/coreos.yaml

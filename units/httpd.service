@@ -1,0 +1,8 @@
+[Unit]
+Description=HTTPD Server
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p -p 80:80 -v /mnt/pxe-server/data/http/:/usr/local/apache2/htdocs/:ro library/httpd:latest
+ExecStop=/usr/bin/docker stop %p

@@ -1,0 +1,8 @@
+[Unit]
+Description=TFTP HPA Server
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p --net=host -v /mnt/pxe-server/config/tftp/pxelinux.cfg/:/tftpboot/pxelinux.cfg/:ro vpommier/tftp-hpa:latest
+ExecStop=/usr/bin/docker stop %p

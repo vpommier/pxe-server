@@ -1,0 +1,8 @@
+[Unit]
+Description=ISC DHCP Server
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p --net=host -v /mnt/pxe-server/config/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf:ro -v /mnt/pxe-server/data/dhcp/:/var/lib/dhcp/:rw vpommier/isc-dhcp-server:latest
+ExecStop=/usr/bin/docker stop %p
